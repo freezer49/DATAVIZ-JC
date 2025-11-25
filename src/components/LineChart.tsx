@@ -60,18 +60,27 @@ export default function Example() {
 
   // Rendu JSX du graphique Recharts
   return (
-    <LineChart
-      width={700}
-      height={400}
-      data={chartData}
-      margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="year" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="count" stroke="#82ca9d" />
-    </LineChart>
+    <div className="p-5">
+      <h2>Evolution du nombre de tournage par année 🔝</h2>
+      <p className="text-gray-600 mb-5">
+        Ce graphique représente l'évolution du nombre de tournage réalisée à
+        Paris en fonction des années. De 2026 à 2024.
+      </p>
+      <div>
+        <LineChart
+          width={700}
+          height={400}
+          data={chartData}
+          margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="count" stroke="#580D11" />
+        </LineChart>
+      </div>{" "}
+    </div>
   );
 }
