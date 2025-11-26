@@ -5,13 +5,28 @@ import Footer from "./components/Footer";
 import Image from "./components/Image";
 import LineChart from "./components/LineChart";
 import TopDirectors from "./components/TopDirectors";
+import HomeCard from "./components/HomeCard";
+import { LineChartInfo } from "./components/ChartInfo";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Header />
+
       <Routes>
-        <Route path="/" element={<Image />} />
+        {/* Page d'accueil */}
+        <Route
+          path="/"
+          element={
+            <div className="p-8 flex flex-col gap-6">
+              <Image />
+              <HomeCard chartInfo={LineChartInfo} />
+              {/* Tu peux ajouter d'autres HomeCard ici pour d'autres graphiques */}
+            </div>
+          }
+        />
+
+        {/* Page Analyse */}
         <Route
           path="/analyse"
           element={
@@ -23,6 +38,7 @@ export default function App() {
           }
         />
       </Routes>
+
       <Footer />
     </BrowserRouter>
   );

@@ -11,6 +11,8 @@ import {
   Legend,
 } from "recharts";
 
+import { LineChartInfo } from "./ChartInfo";
+
 // --- Types ---
 interface TournageAPI {
   nom_tournage: string;
@@ -69,13 +71,8 @@ export default function Example() {
 
   return (
     <div className="p-5">
-      <h2 className="text-2xl font-bold">
-        Evolution du nombre de tournage par année 🔝
-      </h2>
-      <p className="text-gray-500 mb-5">
-        Ce graphique représente l'évolution du nombre de tournage réalisée à
-        Paris en fonction des années. De 2026 à 2024.
-      </p>
+      <h2 className="text-2xl font-bold">{LineChartInfo.title}</h2>
+      <p className="text-gray-500 mb-5">{LineChartInfo.description}</p>
 
       <LineChart
         width={700}
