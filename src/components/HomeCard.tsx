@@ -12,7 +12,7 @@ export default function HomeCard({ chartInfo }: HomeCardProps) {
     <div
       className="card border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex items-center gap-4"
       // Redirection vers la page du graphique
-      onClick={() => (window.location.href = `/charts/${chartInfo.id}`)}
+      onClick={() => (window.location.href = `/analyse`)}
     >
       {/* Texte à gauche */}
       <div className="flex-1">
