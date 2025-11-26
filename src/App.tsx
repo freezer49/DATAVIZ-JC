@@ -7,7 +7,11 @@ import LineChart from "./components/LineChart";
 import ShootingTypeChart from "./components/ShootingTypeChart";
 import TopDirectors from "./components/TopDirectors";
 import HomeCard from "./components/HomeCard";
-import { LineChartInfo, TopDirectorsInfo } from "./components/ChartInfo";
+import {
+  LineChartInfo,
+  TopDirectorsInfo,
+  ShootingTypeChartInfo,
+} from "./components/ChartInfo";
 
 export default function App() {
   return (
@@ -23,6 +27,7 @@ export default function App() {
               <Image />
               <HomeCard chartInfo={LineChartInfo} />
               <HomeCard chartInfo={TopDirectorsInfo} />
+              <HomeCard chartInfo={ShootingTypeChartInfo} />
               {/* Tu peux ajouter d'autres HomeCard ici pour d'autres graphiques */}
             </div>
           }

@@ -19,3 +19,11 @@ export const TopDirectorsInfo = {
   description: "Les réalisateurs avec le plus de tournages enregistrés",
   thumbnail: "../public/picTopDirectors.png",
 };
+
+export const ShootingTypeChartInfo = {
+  id: "ShootingTypeChart", // <-- C'est ton chartId
+  title: "Répartition par type de tournage",
+  description:
+    "Distribution des tournages selon leur type (long métrage, série, téléfilm, etc.)",
+  thumbnail: "../public/picShootingTypeChart.png",
+};
