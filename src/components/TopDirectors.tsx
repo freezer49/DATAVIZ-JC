@@ -32,7 +32,9 @@ export default function TopDirectors() {
       const { total_count } = await first.json();
 
       // 2. Charger toutes les pages en parallèle (l'API est paginée par 100)
-      const pages = Math.ceil(total_count / 100);
+      // Limiter à 10000 entrées max pour éviter les erreurs d'API
+      const maxOffset = Math.min(10000, total_count);
+      const pages = Math.ceil(maxOffset / 100);
       const promises = [];
       for (let i = 0; i < pages; i++) {
         promises.push(
@@ -40,7 +42,12 @@ export default function TopDirectors() {
             `https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100&offset=${
               i * 100
             }`
-          ).then((res) => res.json())
+          )
+            .then((res) => {
+              if (!res.ok) return { results: [] }; // Retourner un tableau vide si erreur
+              return res.json();
+            })
+            .catch(() => ({ results: [] })) // Ignorer les erreurs réseau
         );
       }
       const results = await Promise.all(promises);
