@@ -61,8 +61,10 @@ export default function Example() {
   // Rendu JSX du graphique Recharts
   return (
     <div className="p-5">
-      <h2>Evolution du nombre de tournage par année 🔝</h2>
-      <p className="text-gray-600 mb-5">
+      <h2 className="text-2xl font-bold">
+        Evolution du nombre de tournage par année 🔝
+      </h2>
+      <p className="text-gray-500 mb-5">
         Ce graphique représente l'évolution du nombre de tournage réalisée à
         Paris en fonction des années. De 2026 à 2024.
       </p>
