@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 
 // // Import des composants Recharts pour créer le graphique
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { ShootingTypeChartInfo } from "./ChartInfo";
 
 // Structure TypeScript : définit la forme des données d'un réalisateur
 
@@ -104,11 +105,8 @@ export default function ShootingTypeChart() {
   // Affichage du graphique avec les données du top 10
   return (
     <div className="p-5">
-      <h2 className="text-2xl font-bold">Répartition par type de tournage</h2>
-      <p className="text-gray-500 mb-5">
-        Distribution des tournages selon leur type (long métrage, série,
-        téléfilm, etc.)
-      </p>
+      <h2 className="text-2xl font-bold">{ShootingTypeChartInfo.title}</h2>
+      <p className="text-gray-500 mb-5">{ShootingTypeChartInfo.description}</p>
 
       <BarChart
         width={800}
