@@ -12,3 +12,10 @@ export const LineChartInfo = {
     "Ce graphique représente l'évolution du nombre de tournage réalisée à Paris en fonction des années. De 2026 à 2024.",
   thumbnail: "../public/picLineChart.png",
 };
+
+export const TopDirectorsInfo = {
+  id: "TopDirectors", // <-- C'est ton chartId
+  title: "📊 Top 10 Réalisateurs/Réalisatrices à Paris",
+  description: "Les réalisateurs avec le plus de tournages enregistrés",
+  thumbnail: "../public/picTopDirectors.png",
+};
