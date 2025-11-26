@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 // Import des composants Recharts pour créer le graphique
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
+import { TopDirectorsInfo } from "./ChartInfo";
+
 // Structure TypeScript : définit la forme des données d'un réalisateur
 interface DirectorData {
   name: string;
@@ -109,12 +111,8 @@ export default function TopDirectors() {
   // Affichage du graphique avec les données du top 10
   return (
     <div className="p-5">
-      <h2 className="text-2xl font-bold">
-        📊 Top 10 Réalisateurs/Réalisatrices à Paris
-      </h2>
-      <p className="text-gray-500 mb-5">
-        Les réalisateurs avec le plus de tournages enregistrés
-      </p>
+      <h2 className="text-2xl font-bold">{TopDirectorsInfo.title}</h2>
+      <p className="text-gray-500 mb-5">{TopDirectorsInfo.description}</p>
 
       <BarChart
         width={800}
