@@ -110,7 +110,7 @@ export default function TopDirectors() {
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold">
-        📊 Top 10 Réalisateurs/Réalisatrices à Paris
+        Top 10 Réalisateurs/Réalisatrices à Paris
       </h2>
       <p className="text-gray-500 mb-5">
         Les réalisateurs avec le plus de tournages enregistrés

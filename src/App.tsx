@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Image from "./components/Image";
 import LineChart from "./components/LineChart";
-// import ShootingTypeChart from "./components/ShootingTypeChart";
+import ShootingTypeChart from "./components/ShootingTypeChart";
 import TopDirectors from "./components/TopDirectors";
 import HomeCard from "./components/HomeCard";
 import { LineChartInfo } from "./components/ChartInfo";
@@ -34,8 +34,8 @@ export default function App() {
             <div className="p-8">
               <h1 className="text-3xl font-bold text-center mb-8">Analyse</h1>
               <LineChart />
+              <ShootingTypeChart />
               <TopDirectors />
-              {/* <ShootingTypeChart /> */}
             </div>
           }
         />
