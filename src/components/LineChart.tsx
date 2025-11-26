@@ -11,7 +11,19 @@ import {
   Legend,
 } from "recharts";
 
-async function Fetch() {
+// --- Types ---
+interface TournageAPI {
+  nom_tournage: string;
+  annee_tournage: number | null;
+}
+
+interface ChartPoint {
+  year: string;
+  count: number;
+}
+
+// --- Fetch avec typage ---
+async function Fetch(): Promise<TournageAPI[]> {
   const response = await fetch(
     "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=nom_tournage%2C%20annee_tournage&limit=100&offset=0"
   );
@@ -24,63 +36,60 @@ async function Fetch() {
 // Composant React principal qui affichera le graphique
 export default function Example() {
   // State pour stocker les données transformées à afficher dans le graphique
-  const [chartData, setChartData] = useState([]);
+  const [chartData, setChartData] = useState<ChartPoint[]>([]);
 
-  // useEffect permet d'exécuter du code au montage du composant
   useEffect(() => {
-    // Fonction interne pour charger et transformer les données
     async function load() {
-      // Appel de la fonction Fetch pour récupérer les tournages
       const results = await Fetch();
 
-      // Transformation des données pour compter le nombre de tournages par année
-      const counts = results.reduce((acc, item) => {
-        const year = item.annee_tournage; // On récupère l'année du tournage
+      // Comptage des tournages par année
+      const counts = results.reduce<Record<string, number>>((acc, item) => {
+        const year = item.annee_tournage;
 
-        // Ignore les tournages sans année
         if (!year) return acc;
 
-        // Si l'année existe déjà dans l'objet, on incrémente le compteur
-        // Sinon, on initialise à 1
-        acc[year] = (acc[year] || 0) + 1;
+        const yearStr = String(year);
+        acc[yearStr] = (acc[yearStr] || 0) + 1;
+
         return acc;
-      }, {}); // {} = objet vide pour accumuler les résultats
+      }, {});
 
-      const final = Object.entries(counts).map(([year, count]) => ({
-        year, // clé pour l'axe X
-        count, // valeur pour la ligne
-      }));
+      const final: ChartPoint[] = Object.entries(counts).map(
+        ([year, count]) => ({
+          year,
+          count,
+        })
+      );
 
-      // Mise à jour du state chartData → déclenche le rendu du graphique
       setChartData(final);
     }
 
     load();
-  }, []); // [] → useEffect s'exécute seulement une fois au montage du composant
+  }, []);
 
-  // Rendu JSX du graphique Recharts
   return (
     <div className="p-5">
-      <h2>Evolution du nombre de tournage par année 🔝</h2>
-      <p className="text-gray-600 mb-5">
+      <h2 className="text-2xl font-bold">
+        Evolution du nombre de tournage par année 🔝
+      </h2>
+      <p className="text-gray-500 mb-5">
         Ce graphique représente l'évolution du nombre de tournage réalisée à
         Paris en fonction des années. De 2026 à 2024.
       </p>
-      <div>
-        <LineChart
-          width={700}
-          height={400}
-          data={chartData}
-          margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="count" stroke="#580D11" />
-        </LineChart>
-      </div>{" "}
+
+      <LineChart
+        width={700}
+        height={400}
+        data={chartData}
+        margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="year" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="count" stroke="#580D11" />
+      </LineChart>
     </div>
   );
 }
