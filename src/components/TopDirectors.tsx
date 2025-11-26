@@ -1,204 +1,129 @@
-// Graphique 5 : les Top réalisateurs / réalisatrices
-
-// IMPORTS - Importer les outils qu'on va utiliser
+// Import des hooks React pour gérer l'état et les effets
 import { useState, useEffect } from "react";
+
+// Import des composants Recharts pour créer le graphique
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
-// FONCTION PRINCIPALE DU COMPOSANT
-
-// CRÉER UN TYPE POUR LES DONNÉES
-// Ça dit à TypeScript : "nos données ont un 'name' et un 'count'"
-
-interface DirectorItem {
+// Structure TypeScript : définit la forme des données d'un réalisateur
+interface DirectorData {
   name: string;
   count: number;
+  years: string[];
+  types: string[];
 }
 
+// Composant React principal qui affichera le graphique des top réalisateurs
 export default function TopDirectors() {
-  // ÉTAPE 1 : CRÉER LES ÉTATS
-  // data = stocke les 10 réalisateurs qu'on va afficher
-  // <DirectorItem[]> = dit à React que data contient des DirectorItem
-  const [data, setData] = useState<DirectorItem[]>([]);
+  // State pour stocker le top 10 des réalisateurs
+  const [data, setData] = useState<DirectorData[]>(
+    Array(10).fill({ name: "Chargement...", count: 10, years: [], types: [] })
+  );
 
-  // loading = true quand on charge, false quand c'est fini
+  // State pour gérer l'affichage du message de chargement
   const [loading, setLoading] = useState(true);
 
-  // ÉTAPE 2 : USEEFFECT - S'exécute UNE SEULE FOIS au démarrage
+  // useEffect : récupère et traite les données au chargement du composant
   useEffect(() => {
-    // ⚠️ IMPORTANT : L'API est paginée (100 résultats par page max)
-    // Il faut faire plusieurs requêtes pour avoir TOUS les résultats
+    const fetchData = async () => {
+      // 1. Récupérer le nombre total de tournages dans l'API
+      const first = await fetch(
+        "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100&offset=0"
+      );
+      const { total_count } = await first.json();
 
-    const fetchAllData = async () => {
-      try {
-        console.log("🔄 Début du chargement de TOUS les tournages...");
-
-        // ÉTAPE 2.1 : ALLER CHERCHER LA PREMIÈRE PAGE pour connaître le total
-        const firstPageResponse = await fetch(
-          "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100&offset=0"
+      // 2. Charger toutes les pages en parallèle (l'API est paginée par 100)
+      const pages = Math.ceil(total_count / 100);
+      const promises = [];
+      for (let i = 0; i < pages; i++) {
+        promises.push(
+          fetch(
+            `https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100&offset=${
+              i * 100
+            }`
+          ).then((res) => res.json())
         );
-        const firstPageData = await firstPageResponse.json();
+      }
+      const results = await Promise.all(promises);
 
-        console.log("📊 Total de tournages dans l'API :", firstPageData.total_count);
+      // 3. Combiner tous les résultats en un seul tableau
+      const films = results.flatMap((page) => page.results || []);
 
-        // ÉTAPE 2.2 : CALCULER COMBIEN DE PAGES IL FAUT
-        // Si on a 14760 résultats et 100 par page = 148 pages
-        const totalCount = firstPageData.total_count;
-        const pageSize = 100;
-        const totalPages = Math.ceil(totalCount / pageSize);
+      // 4. Compter les tournages par réalisateur et collecter années/types
+      const directors: Record<string, DirectorData> = {};
+      films.forEach((film) => {
+        const name = film.nom_realisateur?.trim();
+        if (!name) return;
 
-        console.log(`📄 Nombre de pages à charger : ${totalPages}`);
-
-        // ÉTAPE 2.3 : CRÉER UN ARRAY AVEC TOUTES LES REQUÊTES
-        // Exemple : [0, 100, 200, 300, ...]
-        const offsets = [];
-        for (let i = 0; i < totalPages; i++) {
-          offsets.push(i * pageSize);
+        if (!directors[name]) {
+          directors[name] = { name, count: 0, years: [], types: [] };
         }
 
-        console.log("🔗 URLs à charger :", offsets.slice(0, 5), "...(et", offsets.length - 5, "autres)");
+        directors[name].count++;
+        if (
+          film.annee_tournage &&
+          !directors[name].years.includes(film.annee_tournage)
+        ) {
+          directors[name].years.push(film.annee_tournage);
+        }
+        if (
+          film.type_tournage &&
+          !directors[name].types.includes(film.type_tournage)
+        ) {
+          directors[name].types.push(film.type_tournage);
+        }
+      });
 
-        // ÉTAPE 2.4 : FAIRE TOUTES LES REQUÊTES EN MÊME TEMPS (Promise.all)
-        // Promise.all = "lance toutes les requêtes en parallèle"
-        const allPages = await Promise.all(
-          offsets.map((offset) =>
-            fetch(
-              `https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100&offset=${offset}`
-            )
-              .then((response) => response.json())
-              .catch((error) => {
-                console.error(`❌ Erreur pour offset ${offset}:`, error);
-                return { results: [] };
-              })
-          )
-        );
+      // 5. Trier par nombre de tournages et garder seulement le top 10
+      const top10 = Object.values(directors)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
 
-        console.log("✅ Toutes les pages chargées !");
-
-        // ÉTAPE 2.5 : COMBINER TOUS LES RÉSULTATS EN UN SEUL ARRAY
-        // results = [ ...page1, ...page2, ...page3, ... ]
-        const allResults: any[] = [];
-        allPages.forEach((page) => {
-          if (page.results && page.results.length > 0) {
-            allResults.push(...page.results);
-          }
-        });
-
-        console.log(`📽️ Total de tournages récupérés : ${allResults.length}`);
-
-        // ÉTAPE 2.6 : CRÉER UN OBJET VIDE POUR COMPTER
-        const directors: Record<string, number> = {};
-        let countProcessed = 0;
-        let countSkipped = 0;
-
-        // ÉTAPE 2.7 : BOUCLER SUR CHAQUE TOURNAGE
-        allResults.forEach((film: any) => {
-          const name = film.nom_realisateur;
-
-          // Ignorer si le nom est vide
-          if (!name || typeof name !== "string" || name.trim() === "") {
-            countSkipped++;
-            return;
-          }
-
-          const cleanName = name.trim();
-
-          // Créer une nouvelle entrée si elle n'existe pas
-          if (!directors[cleanName]) {
-            directors[cleanName] = 0;
-          }
-
-          // Augmenter le compte
-          directors[cleanName] = directors[cleanName] + 1;
-          countProcessed++;
-        });
-
-        console.log(`✅ Traités: ${countProcessed}, ⏭️ Ignorés: ${countSkipped}`);
-
-        // ÉTAPE 2.8 : CONVERTIR EN TABLEAU
-        const directorsArray = Object.keys(directors).map((name) => ({
-          name: name,
-          count: directors[name],
-        }));
-
-        console.log("📋 Nombre unique de réalisateurs :", directorsArray.length);
-
-        // ÉTAPE 2.9 : TRIER DU PLUS GRAND AU PLUS PETIT
-        directorsArray.sort((a, b) => b.count - a.count);
-
-        // ÉTAPE 2.10 : PRENDRE LES 10 PREMIERS
-        const top10 = directorsArray.slice(0, 10);
-
-        console.log("🏆 Top 10 final :", top10);
-
-        // ÉTAPE 2.11 : SAUVEGARDER ET TERMINER
-        setData(top10);
-        setLoading(false);
-
-      } catch (error) {
-        console.error("❌ Erreur générale :", error);
-        setLoading(false);
-      }
+      setData(top10);
+      setLoading(false);
     };
 
-    // Lancer la fonction asynchrone
-    fetchAllData();
-  }, []); // [] = s'exécute une seule fois au démarrage
+    fetchData();
+  }, []);
 
-  // 📍 ÉTAPE 3 : AFFICHER LE MESSAGE DE CHARGEMENT SI NÉCESSAIRE
-  // if (loading) = si c'est encore en train de charger
-  if (loading) {
-    return <p>⏳ Chargement des données...</p>;
-  }
+  // Composant personnalisé pour l'infobulle (affiche détails au survol)
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (!active || !payload?.[0]) return null;
+    const d = payload[0].payload;
+    return (
+      <div className="bg-white p-3 border rounded shadow-lg text-sm">
+        <p className="font-bold">{d.name}</p>
+        <p>🎬 {d.count} tournages</p>
+        <p className="text-gray-600">📅 {d.years.join(", ")}</p>
+        <p className="text-gray-600">🎥 {d.types.join(", ")}</p>
+      </div>
+    );
+  };
 
-  // 📍 ÉTAPE 4 : AFFICHER LE GRAPHIQUE AVEC LES DONNÉES
+  // Affichage du graphique avec les données du top 10
   return (
-    <div style={{ padding: "20px" }}>
-      {/* Titre du graphique */}
-      <h2>📊 Top 10 Réalisateurs/Réalisatrices à Paris</h2>
-
-      {/* Sous-titre */}
-      <p style={{ color: "#666", marginBottom: "20px" }}>
+    <div className="p-5">
+      <h2 className="text-2xl font-bold">
+        📊 Top 10 Réalisateurs/Réalisatrices à Paris
+      </h2>
+      <p className="text-gray-500 mb-5">
         Les réalisateurs avec le plus de tournages enregistrés
       </p>
 
-      {/* 📍 ÉTAPE 4.1 : LE GRAPHIQUE RECHARTS */}
-      {/* BarChart = crée un graphique avec des barres */}
       <BarChart
-        width={800} // Largeur en pixels
-        height={400} // Hauteur en pixels
-        data={data} // Les données qu'on a préparées (top 10)
-        margin={{
-          top: 20, // Espace en haut
-          right: 30, // Espace à droite
-          left: 20, // Espace à gauche
-          bottom: 100, // Espace en bas (pour les noms longs)
-        }}
+        width={800}
+        height={400}
+        data={data}
+        margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
       >
-        {/* 📍 ÉTAPE 4.2 : LA GRILLE POINTILLÉE DE FOND */}
         <CartesianGrid strokeDasharray="3 3" />
-
-        {/* 📍 ÉTAPE 4.3 : L'AXE X (horizontal) - LES NOMS */}
-        <XAxis
-          dataKey="name" // Prend le champ "name" de nos données
-          angle={-45} // Tourne le texte de -45 degrés pour le lire
-          textAnchor="end" // Aligne le texte à la fin
-          height={100} // Réserve 100px pour les noms
-        />
-
-        {/* 📍 ÉTAPE 4.4 : L'AXE Y (vertical) - LES NOMBRES */}
+        <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
         <YAxis />
-
-        {/* 📍 ÉTAPE 4.5 : L'INFOBULLE AU SURVOL */}
-        {/* Quand tu mets ta souris sur une barre, ça affiche les infos */}
-        <Tooltip />
-
-        {/* 📍 ÉTAPE 4.6 : LES BARRES BLEUES */}
-        {/* Bar = crée les barres du graphique */}
+        <Tooltip content={<CustomTooltip />} />
         <Bar
-          dataKey="count" // Affiche le champ "count"
-          fill="#8884d8" // Couleur bleue
-          radius={[8, 8, 0, 0]} // Coins arrondis en haut
-          label={{ position: "top" }} // Affiche le nombre sur la barre
+          dataKey="count"
+          fill="#580D11"
+          radius={[8, 8, 0, 0]}
+          label={{ position: "top" }}
         />
       </BarChart>
     </div>

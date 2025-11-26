@@ -1,20 +1,29 @@
 import "./App.css";
-import Image from "./components/Image";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Image from "./components/Image";
 import LineChart from "./components/LineChart";
 import TopDirectors from "./components/TopDirectors";
 
-function App() {
+export default function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      <Image />
-      <LineChart />
-      <TopDirectors />
+      <Routes>
+        <Route path="/" element={<Image />} />
+        <Route
+          path="/analyse"
+          element={
+            <div className="p-8">
+              <h1 className="text-3xl font-bold text-center mb-8">Analyse</h1>
+              <LineChart />
+              <TopDirectors />
+            </div>
+          }
+        />
+      </Routes>
       <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
-
-export default App;
