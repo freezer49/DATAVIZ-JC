@@ -6,6 +6,7 @@ import Image from "./components/Image";
 import LineChart from "./components/LineChart";
 import ShootingTypeChart from "./components/ShootingTypeChart";
 import TopDirectors from "./components/TopDirectors";
+import SimpleBarChart from "./components/SimpleBarChart";
 import HomeCard from "./components/HomeCard";
 import {
   LineChartInfo,
@@ -42,6 +43,7 @@ export default function App() {
               <LineChart />
               <ShootingTypeChart />
               <TopDirectors />
+              <SimpleBarChart />
             </div>
           }
         />
