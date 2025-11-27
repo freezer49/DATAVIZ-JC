@@ -12,6 +12,7 @@ import {
   LineChartInfo,
   TopDirectorsInfo,
   ShootingTypeChartInfo,
+  SimpleBarChartInfo,
 } from "./components/ChartInfo";
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
               <HomeCard chartInfo={LineChartInfo} />
               <HomeCard chartInfo={TopDirectorsInfo} />
               <HomeCard chartInfo={ShootingTypeChartInfo} />
+              <HomeCard chartInfo={SimpleBarChartInfo} />
               {/* Tu peux ajouter d'autres HomeCard ici pour d'autres graphiques */}
             </div>
           }

@@ -27,3 +27,11 @@ export const ShootingTypeChartInfo = {
     "Distribution des tournages selon leur type (long métrage, série, téléfilm, etc.)",
   thumbnail: "../public/picShootingTypeChart.png",
 };
+
+export const SimpleBarChartInfo = {
+  id: "SimpleBarChart", // <-- C'est ton chartId
+  title: "Répartition du nombre de tournage par arrondissement 🌀",
+  description:
+    "Ce graphique montre le nombre de tournages réalisés dans chaque arrondissement de Paris. Il permet d’identifier en un coup d’œil les zones où les tournages sont les plus fréquents.",
+  thumbnail: "../public/picSimpleBarChart.png",
+};
