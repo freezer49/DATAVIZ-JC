@@ -35,10 +35,14 @@ const arrondissement: Record<string, number> = results.reduce((acc, item) => {
 // console.log(arrondissement);
 
 // #region Sample data
-const data = Object.entries(arrondissement).map(([name, nbTournage]) => ({
-  name,
-  nbTournage,
-}));
+const dataInitial = Object.entries(arrondissement).map(
+  ([name, nbTournage]) => ({
+    name,
+    nbTournage,
+  })
+);
+
+const data = dataInitial.sort((a, b) => b.nbTournage - a.nbTournage);
 
 // #endregion
 const SimpleBarChart = () => {
