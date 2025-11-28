@@ -85,7 +85,12 @@ export default function Example() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="count" stroke="#580D11" />
+        <Line
+          type="monotone"
+          dataKey="count"
+          stroke="#580D11"
+          name="Nombre de tournages"
+        />
       </LineChart>
     </div>
   );
