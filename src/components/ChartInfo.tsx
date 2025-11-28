@@ -34,6 +34,7 @@ export const TypesByYearChartInfo = {
   description:
     "Distribution des types de tournage par année (5 types principaux + Autres)",
   thumbnail: "../public/picTypesByYearChart.png",
+};
 export const SimpleBarChartInfo = {
   id: "SimpleBarChart", // <-- C'est ton chartId
   title: "Répartition du nombre de tournage par arrondissement 🌀",
