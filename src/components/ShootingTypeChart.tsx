@@ -106,7 +106,9 @@ export default function ShootingTypeChart() {
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold">{ShootingTypeChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">{ShootingTypeChartInfo.description}</p>
+      <p className="text-gray-500 mb-5">
+        {ShootingTypeChartInfo.analysisDescription}
+      </p>
 
       <BarChart
         width={800}

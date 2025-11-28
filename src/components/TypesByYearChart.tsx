@@ -159,7 +159,9 @@ export default function TypesByYearChart() {
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold">{TypesByYearChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">{TypesByYearChartInfo.description}</p>
+      <p className="text-gray-500 mb-5">
+        {TypesByYearChartInfo.analysisDescription}
+      </p>
 
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
