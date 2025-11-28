@@ -49,7 +49,9 @@ const SimpleBarChart = () => {
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold">{SimpleBarChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">{SimpleBarChartInfo.description}</p>
+      <p className="text-gray-500 mb-5">
+        {SimpleBarChartInfo.analysisDescription}
+      </p>
       <BarChart
         layout="vertical"
         style={{

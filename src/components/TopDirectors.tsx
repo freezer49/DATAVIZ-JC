@@ -112,7 +112,9 @@ export default function TopDirectors() {
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold">{TopDirectorsInfo.title}</h2>
-      <p className="text-gray-500 mb-5">{TopDirectorsInfo.description}</p>
+      <p className="text-gray-500 mb-5">
+        {TopDirectorsInfo.analysisDescription}
+      </p>
 
       <BarChart
         width={800}

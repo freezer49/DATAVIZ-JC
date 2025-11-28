@@ -72,7 +72,7 @@ export default function Example() {
   return (
     <div className="p-5">
       <h2 className="text-2xl font-bold">{LineChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">{LineChartInfo.description}</p>
+      <p className="text-gray-500 mb-5">{LineChartInfo.analysisDescription}</p>
 
       <LineChart
         width={700}

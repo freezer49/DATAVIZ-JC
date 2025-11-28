@@ -2,7 +2,7 @@ interface HomeCardProps {
   chartInfo: {
     id: string;
     title: string;
-    description: string;
+    previewDescription: string;
     thumbnail: string;
   };
 }
@@ -17,7 +17,7 @@ export default function HomeCard({ chartInfo }: HomeCardProps) {
       {/* Texte à gauche */}
       <div className="flex-1">
         <h3 className="text-lg font-bold">{chartInfo.title}</h3>
-        <p className="text-gray-500 text-sm">{chartInfo.description}</p>
+        <p className="text-gray-500 text-sm">{chartInfo.previewDescription}</p>
       </div>
 
       {/* Image à droite */}
