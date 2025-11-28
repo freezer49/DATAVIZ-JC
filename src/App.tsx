@@ -5,12 +5,14 @@ import Footer from "./components/Footer";
 import Image from "./components/Image";
 import LineChart from "./components/LineChart";
 import ShootingTypeChart from "./components/ShootingTypeChart";
+import TypesByYearChart from "./components/TypesByYearChart";
 import TopDirectors from "./components/TopDirectors";
 import HomeCard from "./components/HomeCard";
 import {
   LineChartInfo,
   TopDirectorsInfo,
   ShootingTypeChartInfo,
+  TypesByYearChartInfo,
 } from "./components/ChartInfo";
 
 export default function App() {
@@ -27,6 +29,7 @@ export default function App() {
               <Image />
               <HomeCard chartInfo={LineChartInfo} />
               <HomeCard chartInfo={TopDirectorsInfo} />
+              <HomeCard chartInfo={TypesByYearChartInfo} />
               <HomeCard chartInfo={ShootingTypeChartInfo} />
               {/* Tu peux ajouter d'autres HomeCard ici pour d'autres graphiques */}
             </div>
@@ -41,6 +44,7 @@ export default function App() {
               <h1 className="text-3xl font-bold text-center mb-8">Analyse</h1>
               <LineChart />
               <ShootingTypeChart />
+              <TypesByYearChart />
               <TopDirectors />
             </div>
           }

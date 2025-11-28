@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { ShootingTypeChartInfo } from "./ChartInfo";
 
-// Structure TypeScript : définit la forme des données d'un réalisateur
+// Structure TypeScript : définit la forme des données
 
 interface ShootingData {
   name: string;

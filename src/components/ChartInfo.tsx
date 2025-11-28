@@ -15,7 +15,7 @@ export const LineChartInfo = {
 
 export const TopDirectorsInfo = {
   id: "TopDirectors", // <-- C'est ton chartId
-  title: "📊 Top 10 Réalisateurs/Réalisatrices à Paris",
+  title: "Top 10 Réalisateurs/Réalisatrices à Paris",
   description: "Les réalisateurs avec le plus de tournages enregistrés",
   thumbnail: "../public/picTopDirectors.png",
 };
@@ -26,4 +26,12 @@ export const ShootingTypeChartInfo = {
   description:
     "Distribution des tournages selon leur type (long métrage, série, téléfilm, etc.)",
   thumbnail: "../public/picShootingTypeChart.png",
+};
+
+export const TypesByYearChartInfo = {
+  id: "TypesByYearChart",
+  title: "Types × Année",
+  description:
+    "Distribution des types de tournage par année (5 types principaux + Autres)",
+  thumbnail: "../public/picTypesByYearChart.png",
 };
