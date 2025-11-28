@@ -29,7 +29,7 @@ export default function TopDirectors() {
     const fetchData = async () => {
       // 1. Récupérer le nombre total de tournages dans l'API
       const first = await fetch(
-        "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?limit=100&offset=0"
+        "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/lieux-de-tournage-a-paris/records?select=annee_tournage%2Cnom_realisateur&limit=100&offset=0"
       );
       const { total_count } = await first.json();
 

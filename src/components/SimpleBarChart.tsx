@@ -31,9 +31,6 @@ const arrondissement: Record<string, number> = results.reduce((acc, item) => {
   return acc;
 }, {} as Record<string, number>);
 
-// console.log("Coucou");
-// console.log(arrondissement);
-
 // #region Sample data
 const dataInitial = Object.entries(arrondissement).map(
   ([name, nbTournage]) => ({
@@ -74,7 +71,7 @@ const SimpleBarChart = () => {
         <Tooltip />
         <Legend />
 
-        <Bar dataKey="nbTournage" fill="#580D11" />
+        <Bar dataKey="nbTournage" fill="#580D11" name="Nombre de tournages" />
       </BarChart>
     </div>
   );
