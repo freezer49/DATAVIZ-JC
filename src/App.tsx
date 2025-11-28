@@ -7,12 +7,14 @@ import LineChart from "./components/LineChart";
 import ShootingTypeChart from "./components/ShootingTypeChart";
 import TypesByYearChart from "./components/TypesByYearChart";
 import TopDirectors from "./components/TopDirectors";
+import SimpleBarChart from "./components/SimpleBarChart";
 import HomeCard from "./components/HomeCard";
 import {
   LineChartInfo,
   TopDirectorsInfo,
   ShootingTypeChartInfo,
   TypesByYearChartInfo,
+  SimpleBarChartInfo,
 } from "./components/ChartInfo";
 
 export default function App() {
@@ -31,6 +33,7 @@ export default function App() {
               <HomeCard chartInfo={TopDirectorsInfo} />
               <HomeCard chartInfo={TypesByYearChartInfo} />
               <HomeCard chartInfo={ShootingTypeChartInfo} />
+              <HomeCard chartInfo={SimpleBarChartInfo} />
               {/* Tu peux ajouter d'autres HomeCard ici pour d'autres graphiques */}
             </div>
           }
@@ -46,6 +49,7 @@ export default function App() {
               <ShootingTypeChart />
               <TypesByYearChart />
               <TopDirectors />
+              <SimpleBarChart />
             </div>
           }
         />
