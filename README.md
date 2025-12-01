@@ -1,73 +1,113 @@
-# React + TypeScript + Vite
+🎯 Objectifs du projet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Pendant trois semaines, nous avons appris à :
 
-Currently, two official plugins are available:
+Consommer une API open data (requêtes, pagination, filtres).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Manipuler et transformer des données pour les rendre exploitables.
 
-## React Compiler
+Concevoir des graphiques interactifs avec Recharts.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Structurer une application en React + TypeScript.
 
-## Expanding the ESLint configuration
+Travailler en équipe avec Git (branches, pull requests, README).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Déployer une application web.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+🧱 Stack technique utilisée
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+React + TypeScript (Vite)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Recharts pour les graphiques
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+React Router pour la navigation entre les pages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+API Paris Data – Lieux de tournage à Paris (v2.1)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Déploiement prévu sur GitHub Pages
+
+📡 Source des données
+
+Nous avons utilisé l’API publique :
+Lieux de tournage à Paris – Ville de Paris
+
+Chaque enregistrement correspond à un tournage autorisé depuis 2016.
+Voici quelques champs importants exploités :
+
+nom_tournage → nom de l’œuvre
+
+nom_realisateur → réalisateur / réalisatrice
+
+type_tournage → long-métrage, série, téléfilm, etc.
+
+annee_tournage → année
+
+ardt_lieu → arrondissement
+
+geo_point_2d → coordonnées
+
+📊 Visualisations réalisées
+1️⃣ Évolution du nombre de tournages par année
+
+Graphique LineChart
+
+Permet d’identifier les tendances (pics, baisses, années intenses…)
+
+2️⃣ Répartition par type de tournage
+
+BarChart vertical
+
+Comparaison claire entre les types de productions
+
+3️⃣ Types × Année
+
+AreaChart empilé
+
+Représentation des 5 types principaux + "Autres"
+
+Permet de voir la dynamique des catégories dans le temps
+
+4️⃣ Tournages par arrondissement
+
+BarChart horizontal
+
+Classé du plus au moins actif
+
+Ajout d’un filtre permettant de sélectionner un arrondissement
+
+5️⃣ Top réalisateurs / réalisatrices
+
+BarChart
+
+Classement des cinéastes ayant le plus tourné à Paris
+
+Info-bulles enrichies
+
+🚀 Lancer le projet
+npm install
+npm run dev
+
+🌐 Déploiement
+
+Le projet peut être déployé facilement sur :
+
+Vercel
+
+Netlify
+
+GitHub Pages
+
+👥 Travail collaboratif
+
+Nous avons utilisé Git pour collaborer efficacement :
+branches, pull requests, revues, documentation.
+
+📝 Remarque
+
+Ce projet a été réalisé dans un cadre pédagogique et nous a permis de découvrir plus en profondeur :
+
+l’écosystème React,
+
+la visualisation de données,
+
+et le fonctionnement d’une API publique.
