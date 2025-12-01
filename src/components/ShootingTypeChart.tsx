@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { ShootingTypeChartInfo } from "./ChartInfo";
 
 interface ShootingData {
   name: string;
@@ -81,14 +82,22 @@ export default function ShootingTypeChart() {
   const total = data.reduce((sum, item) => sum + item.count, 0);
 
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <BarChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
-        <YAxis />
-        <Tooltip content={<CustomTooltip total={total} />} />
-        <Bar dataKey="count" fill="#580D11" radius={[8, 8, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="p-3 sm:p-5 w-full h-full flex flex-col">
+      <h2 className="text-base sm:text-2xl font-bold">
+        {ShootingTypeChartInfo.title}
+      </h2>
+      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-5">
+        {ShootingTypeChartInfo.analysisDescription}
+      </p>
+      <ResponsiveContainer width="100%" height={400}>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+          <YAxis />
+          <Tooltip content={<CustomTooltip total={total} />} />
+          <Bar dataKey="count" fill="#580D11" radius={[8, 8, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
