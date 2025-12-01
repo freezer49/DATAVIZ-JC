@@ -44,12 +44,14 @@ export default function App() {
           path="/analyse"
           element={
             <div className="p-8">
-              <h1 className="text-3xl font-bold text-center mb-8">Analyse</h1>
-              <LineChart />
-              <ShootingTypeChart />
-              <TopDirectors />
-              <SimpleBarChart />
-              <TypesByYearChart />
+              <h1>Analyse</h1>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <LineChart />
+                <ShootingTypeChart />
+                <TopDirectors />
+                <SimpleBarChart />
+                <TypesByYearChart />
+              </div>
             </div>
           }
         />
