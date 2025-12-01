@@ -22,7 +22,7 @@ export default function TopDirectors() {
   );
 
   // State pour gérer l'affichage du message de chargement
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   // useEffect : récupère et traite les données au chargement du composant
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function TopDirectors() {
         .slice(0, 10);
 
       setData(top10);
-      setLoading(false);
+      // setLoading(false);
     };
 
     fetchData();
