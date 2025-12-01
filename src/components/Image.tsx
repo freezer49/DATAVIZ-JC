@@ -10,8 +10,8 @@ export default function BackgroundWithText() {
       ></div>
 
       {/* Contenu net */}
-      <div className="relative z-10 flex items-center justify-center h-full flex flex-col p-0 text-center">
-        <div className="bg-white p-10 rounded-xl">
+      <div className="relative z-10 flex items-center justify-center h-full flex flex-col p-0 text-center ">
+        <div className="p-5 bg-white md:p-10 rounded-xl ">
           <h1 className="text-black text-2xl font-bold">
             Bienvenue sur le projet Dataviz 📽️
           </h1>
