@@ -7,7 +7,7 @@ interface LineChartInfo {
 
 export const LineChartInfo = {
   id: "LineChart", // <-- C'est ton chartId
-  title: "Evolution du nombre de tournage par année 🔝",
+  title: "Evolution du nombre de tournage par année ",
   previewDescription:
     "Ce graphique représente l'évolution du nombre de tournage réalisée à Paris en fonction des années. De 2026 à 2024.",
   analysisDescription:
@@ -45,7 +45,7 @@ export const TypesByYearChartInfo = {
 };
 export const SimpleBarChartInfo = {
   id: "SimpleBarChart", // <-- C'est ton chartId
-  title: "Répartition du nombre de tournage par arrondissement 🌀",
+  title: "Répartition du nombre de tournage par arrondissement ",
   previewDescription:
     "Ce graphique montre le nombre de tournages réalisés dans chaque arrondissement de Paris. Il permet d’identifier en un coup d’œil les zones où les tournages sont les plus fréquents.",
   analysisDescription:

@@ -10,7 +10,7 @@ interface HomeCardProps {
 export default function HomeCard({ chartInfo }: HomeCardProps) {
   return (
     <div
-      className="card border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex items-center gap-4"
+      className="card border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex flex-row items-start gap-4"
       // Redirection vers la page du graphique
       onClick={() => (window.location.href = `/analyse`)}
     >
@@ -21,7 +21,7 @@ export default function HomeCard({ chartInfo }: HomeCardProps) {
       </div>
 
       {/* Image à droite */}
-      <div className="flex-shrink-0 w-32 h-32 overflow-hidden rounded">
+      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 overflow-hidden rounded">
         <img
           src={chartInfo.thumbnail}
           alt={`${chartInfo.title} thumbnail`}
