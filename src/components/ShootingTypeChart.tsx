@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+
+// // Import des composants Recharts pour créer le graphique
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { ShootingTypeChartInfo } from "./ChartInfo";
 
 // TypeScript : structure des données
@@ -34,12 +44,7 @@ const CustomTooltip = ({ active, payload, total }: CustomTooltipProps) => {
   );
 };
 
-// ---------------------------
-// Composant principal
-// ---------------------------
-export default function ShootingTypeChart() {
-  const [data, setData] = useState<ShootingData[]>([]);
-  const [loading, setLoading] = useState(true);
+  // useEffect : récupère et traite les données au chargement du composant
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +86,6 @@ export default function ShootingTypeChart() {
         .slice(0, 10);
 
       setData(top10);
-      setLoading(false);
     };
 
     fetchData();
@@ -105,29 +109,33 @@ export default function ShootingTypeChart() {
 
   // Affichage du graphique
   return (
-    <div className="p-5">
-      <h2 className="text-2xl font-bold">{ShootingTypeChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">
+    <div className="p-3 sm:p-5 w-full h-full flex flex-col">
+      <h2 className="text-base sm:text-2xl font-bold">
+        {ShootingTypeChartInfo.title}
+      </h2>
+      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-5">
         {ShootingTypeChartInfo.analysisDescription}
       </p>
 
-      <BarChart
-        width={800}
-        height={400}
-        data={data}
-        margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
-        <YAxis />
-        <Tooltip content={<CustomTooltip total={total} />} />
-        <Bar
-          dataKey="count"
-          fill="#580D11"
-          radius={[8, 8, 0, 0]}
-          label={{ position: "top" }}
-        />
-      </BarChart>
+      <div className="flex-1 w-full min-h-[250px] sm:min-h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={data}
+            margin={{ top: 20, right: 1, left: 1, bottom: 10 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+            <YAxis />
+            <Tooltip content={<CustomTooltip />} />
+            <Bar
+              dataKey="count"
+              fill="#580D11"
+              radius={[8, 8, 0, 0]}
+              label={{ position: "top" }}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

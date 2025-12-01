@@ -152,40 +152,46 @@ export default function TypesByYearChart() {
   };
 
   if (loading) {
-    return <div className="p-5 text-center">Chargement des données...</div>;
+    return (
+      <div className="p-3 sm:p-5 text-center">Chargement des données...</div>
+    );
   }
 
   // Affichage du graphique avec les données
   return (
-    <div className="p-5">
-      <h2 className="text-2xl font-bold">{TypesByYearChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">
+    <div className="p-3 sm:p-5 w-full h-full flex flex-col">
+      <h2 className="text-base sm:text-2xl font-bold">
+        {TypesByYearChartInfo.title}
+      </h2>
+      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-5">
         {TypesByYearChartInfo.analysisDescription}
       </p>
 
-      <ResponsiveContainer width="100%" height={400}>
-        <AreaChart
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" angle={-45} textAnchor="end" height={80} />
-          <YAxis />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ paddingTop: "20px" }} height={30} />
-          {allTypes.map((type) => (
-            <Area
-              key={type}
-              type="monotone"
-              dataKey={type}
-              stackId="1"
-              stroke={getColorForType(type)}
-              fill={getColorForType(type)}
-              isAnimationActive={false}
-            />
-          ))}
-        </AreaChart>
-      </ResponsiveContainer>
+      <div className="flex-1 w-full min-h-[250px] sm:min-h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart
+            data={data}
+            margin={{ top: 20, right: 5, left: 5, bottom: 60 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" angle={-45} textAnchor="end" height={80} />
+            <YAxis />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend wrapperStyle={{ paddingTop: "20px" }} height={30} />
+            {allTypes.map((type) => (
+              <Area
+                key={type}
+                type="monotone"
+                dataKey={type}
+                stackId="1"
+                stroke={getColorForType(type)}
+                fill={getColorForType(type)}
+                isAnimationActive={false}
+              />
+            ))}
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

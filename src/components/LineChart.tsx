@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
@@ -70,28 +71,32 @@ export default function Example() {
   }, []);
 
   return (
-    <div className="p-5">
-      <h2 className="text-2xl font-bold">{LineChartInfo.title}</h2>
-      <p className="text-gray-500 mb-5">{LineChartInfo.analysisDescription}</p>
+    <div className="p-3 sm:p-5 w-full h-full flex flex-col">
+      <h2 className="text-base sm:text-2xl font-bold">{LineChartInfo.title}</h2>
+      <p className="text-xs sm:text-sm text-gray-500 mb-2 sm:mb-5">
+        {LineChartInfo.analysisDescription}
+      </p>
 
-      <LineChart
-        width={700}
-        height={400}
-        data={chartData}
-        margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="year" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="count"
-          stroke="#580D11"
-          name="Nombre de tournages"
-        />
-      </LineChart>
+      <div className="flex-1 w-full min-h-[250px] sm:min-h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={chartData}
+            margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="count"
+              stroke="#580D11"
+              name="Nombre de tournages"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }

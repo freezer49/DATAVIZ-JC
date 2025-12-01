@@ -7,6 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 import { SimpleBarChartInfo } from "./ChartInfo";
@@ -86,13 +87,21 @@ const SimpleBarChart = () => {
   }, [selectedArdt]);
 
   return (
-    <div className="p-5">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">{SimpleBarChartInfo.title}</h2>
+    <div className="p-3 sm:p-5 w-full h-full flex flex-col">
+      {/* Titre */}
+      <h2 className="text-base sm:text-2xl font-bold">
+        {SimpleBarChartInfo.title}
+      </h2>
 
-        {/* Liste déroulante */}
+      {/* Description */}
+      <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
+        {SimpleBarChartInfo.analysisDescription}
+      </p>
+
+      {/* Filtre des arrondissements */}
+      <div className="mb-4 sm:mb-5">
         <select
-          className="border px-2 py-1 rounded"
+          className="border px-2 py-1 rounded text-xs sm:text-sm w-full sm:w-auto"
           value={selectedArdt}
           onChange={(e) => setSelectedArdt(e.target.value)}
         >
@@ -104,36 +113,28 @@ const SimpleBarChart = () => {
         </select>
       </div>
 
-      <p className="text-gray-500 mb-5">
-        {SimpleBarChartInfo.analysisDescription}
-      </p>
-
-      <BarChart
-        layout="vertical"
-        style={{
-          width: "100%",
-          maxWidth: "700px",
-          maxHeight: "70vh",
-          aspectRatio: 1.618,
-        }}
-        data={filteredData}
-        margin={{
-          top: 5,
-          right: 0,
-          left: 0,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-
-        <XAxis type="number" />
-        <YAxis type="category" dataKey="name" />
-
-        <Tooltip />
-        <Legend />
-
-        <Bar dataKey="nbTournage" fill="#580D11" name="Nombre de tournages" />
-      </BarChart>
+      {/* Graphique */}
+      <div className="flex-1 w-full min-h-[250px] sm:min-h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            layout="vertical"
+            data={filteredData}
+            margin={{
+              top: 5,
+              right: 0,
+              left: 0,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" />
+            <YAxis type="category" dataKey="name" />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="nbTournage" fill="#580D11" name="Nombre de tournages" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
