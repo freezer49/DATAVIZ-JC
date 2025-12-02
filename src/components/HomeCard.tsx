@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 interface HomeCardProps {
   chartInfo: {
     id: string;
@@ -8,11 +10,13 @@ interface HomeCardProps {
 }
 
 export default function HomeCard({ chartInfo }: HomeCardProps) {
+  const navigate = useNavigate();
+
   return (
     <div
       className="card border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex flex-row items-start gap-4"
       // Redirection vers la page du graphique
-      onClick={() => (window.location.href = `/analyse`)}
+      onClick={() => navigate("/analyse")}
     >
       {/* Texte à gauche */}
       <div className="flex-1">
